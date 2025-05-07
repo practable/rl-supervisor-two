@@ -74,7 +74,7 @@ The image below is an example of the test ID encoding sent by the student to the
 followed by Pin_2, and continuing with the second set of transitions for Pin_0, Pin_1, and Pin_2.
 This sequence gives the binary value 110101, which corresponds to decimal 53.
 
-![Test ID Transmission](../docs/images/figure63.png)
+![Test ID Transmission](../docs/images/figure62.png)
 
 
 ## 📈 Test Result Processing (Python)
@@ -124,7 +124,7 @@ Illegal direction state is blocked: both DIR1 and DIR2 HIGH → Output disabled
 
 ### Supervisor Bypassed  
 Illegal direction state drives output: motor could shoot through  
-![Without Supervisor](../docs/images/ifigure65.png)
+![Without Supervisor](../docs/images/figure65.png)
 
 ## Expected Output Format
 
