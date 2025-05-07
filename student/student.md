@@ -40,10 +40,10 @@ Three Arduinos are used:
 ## Diagrams
 
 ### Wiring Schematic
-![Wiring Diagram](../docs/images/wiring_diagram.png)
+![Wiring Diagram](../images/figure61.png)
 
 ### Real-Life Setup
-![Real Setup](../docs/images/real_life_setup.jpg)
+![Real Setup](../images/real_life_setup.jpg)
 
 ---
 
@@ -74,7 +74,7 @@ The image below is an example of the test ID encoding sent by the student to the
 followed by Pin_2, and continuing with the second set of transitions for Pin_0, Pin_1, and Pin_2.
 This sequence gives the binary value 110101, which corresponds to decimal 53.
 
-![Test ID Transmission](../docs/images/test_id_waveform.png)
+![Test ID Transmission](../images/figure63.png)
 
 
 ## 📈 Test Result Processing (Python)
@@ -120,11 +120,11 @@ Use this for:
 
 ### Supervisor Active  
 Illegal direction state is blocked: both DIR1 and DIR2 HIGH → Output disabled  
-![With Supervisor](../docs/images/illegal_direction_with_supervisor.png)
+![With Supervisor](../images/figure64.png)
 
 ### Supervisor Bypassed  
 Illegal direction state drives output: motor could shoot through  
-![Without Supervisor](../docs/images/illegal_direction_without_supervisor.png)
+![Without Supervisor](../images/ifigure65.png)
 
 ## Expected Output Format
 
