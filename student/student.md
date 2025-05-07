@@ -45,6 +45,7 @@ Three Arduinos are used:
 ### Real-Life Setup
 ![Real Setup](../docs/images/real_life_setup.jpg)
 
+---
 
 ## Section 1: `automated-tests/` — Run All Tests
 
@@ -90,6 +91,7 @@ The `run_tests.py` script does the following:
   - `results-fraction-badge.json`
   - Individual JSON badges for each test
 
+---
 
 ## Section 2: `manual-test-runner/` — Run One Test at a Time
 
@@ -104,13 +106,13 @@ Use this for:
 - Visualising outputs without needing the full test suite
 
 ## How to use
-- make sure supervisor has supervisor code running
-- Upload the manaul student code to the student
-- Upload maunual tester code to the tester
-- Run python script and enter test number desired when promted
-- Once finished running a output graph will apear showing output states during tests
-- Or if you prefer hook up an oscilloscope to desired output
-- Once individual test finished enter new test number
+- Make sure supervisor has supervisor code running
+- Upload the manual student code to the student
+- Upload manual tester code to the tester
+- Run python script and enter test number desired when prompted
+- Once finished running an output graph will appear showing output states during tests
+- Or if you prefer, hook up an oscilloscope to the desired output
+- Once the individual test finished, enter new test number
   
 ---
 
