@@ -4,8 +4,6 @@ This directory contains the firmware for the **Supervisor MCU** used in the Remo
 
 The firmware is modular and clearly commented, allowing for configuration of thresholds, timeouts, and logic to suit different experimental setups.
 
----
-
 ## DC Motor Safety Mechanisms
 
 The Supervisor enforces a range of protective measures when controlling or monitoring the DC motor:
@@ -20,8 +18,6 @@ The Supervisor enforces a range of protective measures when controlling or monit
 
 The motor is disabled by setting the `DC_MOTOR_EN` shift register output (Q0) to LOW. Once safe signal states are restored, control is automatically re-enabled.
 
----
-
 ## Stepper Motor Safety Mechanisms
 
 The Supervisor also monitors the stepper motor control lines to prevent dangerous conditions:
@@ -32,8 +28,6 @@ The Supervisor also monitors the stepper motor control lines to prevent dangerou
 | Fault Line Detection (DRV8825)| Reads fault line on A5 from DRV8825; halts stepper on fault                        |
 
 If a fault or limit condition is detected, the Supervisor disables student access by driving `STEP_EN` (Q2) LOW. Normal operation resumes once safe conditions are restored.
-
----
 
 ## Servo Motor Safety Mechanisms
 
@@ -49,8 +43,6 @@ Servo motor control is filtered, clamped, and rate-limited to prevent unintended
 
 The servo output pin (`D9`) is only driven with valid, safe signals derived from either supervisor logic or spoofed student input.
 
----
-
 ## Configuration & Customization
 
 - **All thresholds, timeouts, and clamping values** (e.g., max current, max runtime, servo limits) are declared as constants near the top of each relevant code section and can be easily modified to fit different experimental use cases.
@@ -58,8 +50,6 @@ The servo output pin (`D9`) is only driven with valid, safe signals derived from
 - **Use Case Variability**: 
   - Depending on which hardware configuration is mounted (e.g., Spinner, Governor, Digger), minor changes to pin assignments or limits may be necessary.
   - The code is written to be flexible and reusable across these use cases, but assumptions (e.g., motor shield used, presence of encoder) should be validated for each new setup.
-
----
 
 ## Contents
 
