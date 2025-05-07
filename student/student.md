@@ -24,18 +24,18 @@ Three Arduinos are used:
 
 ### Wiring Table
 
-| Connection | Student MCU Pin | Tester MCU Pin | Description |
-|-----------|------------------|----------------|-------------|
-| Test ID Bit 0 | A0 | A0 | Used for sync signal and test ID transmission |
-| Test ID Bit 1 | A1 | A1 | 6-bit encoded test ID |
-| Test ID Bit 2 | A2 | A2 | 6-bit encoded test ID |
-| Motor Enable (Q0) | Shift register Q0 | D2 | Spoofed enable signal |
-| Motor DIR1 | Supervisor D7 | D7 | Spoofed direction |
-| Motor DIR2 | Supervisor D12 | D12 | Spoofed direction |
-| Stepper Select | Shift register Q2 | A3 | Stepper enable control |
-| Stepper DIR | Q4 | A4 | Direction line |
-| Step Pulse | D6 | A5 | Step pulse line |
-| Servo PPM | Student D9 | A6 | PWM pulse to servo |
+| Connection | Tester MCU Pin | Description |
+|-----------|----------------|-------------|
+| Test ID Bit 0 | A0 | Used for sync signal and test ID transmission |
+| Test ID Bit 1 | A1 | 6-bit encoded test ID |
+| Test ID Bit 2 | A2 | 6-bit encoded test ID |
+| Motor Enable | D2 | Enable signal |
+| Motor DIR1 | D7 | Spoofed direction |
+| Motor DIR2 | D12 | Spoofed direction |
+| Stepper Select | A3 | Stepper enable control |
+| Stepper DIR | A4 | Direction line |
+| Step Pulse | A5 | Step pulse line |
+| Servo PPM | A6 | PWM pulse to servo |
 
 ## Diagrams
 
