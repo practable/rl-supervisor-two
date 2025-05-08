@@ -129,12 +129,13 @@ Upload is intercepted locally (e.g., by a proxy on the student’s machine):
 
 - Students use a browser IDE (e.g., Codespaces, Eclipse Theia, etc.).
 - Code is compiled and uploaded server-side.
+- Use Docker Container to make sure code is safe.
 - Guarantees upload timing, avoids USB/IP completely.
 - More complex, but scalable and reliable.
 
 ### 3. Bootloader Timeout Extension
 
-- Modify the **Optiboot bootloader** to extend the timeout window.
+- Modify the Optiboot bootloader to extend the timeout window.
 - Works with USB/IP at higher latency.
 - Requires custom bootloader flashing and careful documentation.
 
