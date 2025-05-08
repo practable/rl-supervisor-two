@@ -64,7 +64,7 @@ usbip list -l
 ```
 Example output:
 
-```yaml
+```bash
 - busid 1-1.3 (2341:0043)
   Arduino SA : Uno R3 (CDC ACM)
 ```
@@ -97,7 +97,7 @@ lsusb
 ```
 You should see:
 
-```diff
+```bash
 Bus 001 Device 003: ID 2341:0043 Arduino SA Uno R3 (CDC ACM)
 ```
 You can now open the Arduino IDE and upload sketches as if the board was plugged in locally.
@@ -106,9 +106,9 @@ Example Terminal Output (Linux) can be found at the end of this doc
 
 # Latency Limit Summary
 
-- Uploads succeed reliably up to **243 ms round-trip latency** using the **Uno R3**.
-- Beyond this, **Optiboot exits before upload begins**.
-- Failures are due to **bootloader timeout**, not USB/IP itself.
+- Uploads succeed reliably up to 243 ms round-trip latency using the Uno R3.
+- Beyond this, Optiboot exits before upload begins.
+- Failures are due to bootloader timeout, not USB/IP itself.
 
 ---
 
