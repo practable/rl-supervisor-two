@@ -8,13 +8,13 @@ USB/IP (USB over IP) allows a remote USB device (e.g. Arduino) to appear as if i
 
 This project evaluated the use of USB/IP for remote sketch uploads to Arduino hardware. It was found that:
 
-- **Not all Arduinos work reliably over USB/IP** due to bootloader and USB enumeration behaviour.
-- Boards like the **Arduino Uno R3** (Optiboot bootloader) work over USB/IP.
-- Boards like the **Nano 33 IoT** (BOSSA/UF2 bootloader) fail due to timing issues and port re-enumeration.
-- Uploads via USB/IP work reliably up to **243 ms** of round-trip latency for boards using Optiboot.
+- Not all Arduinos work reliably over USB/IP due to bootloader and USB enumeration behaviour.
+- Boards like the Arduino Uno R3 (Optiboot bootloader) work over USB/IP.
+- Boards like the Nano 33 IoT (BOSSA/UF2 bootloader) fail due to timing issues and port re-enumeration.
+- Uploads via USB/IP work reliably up to 243 ms of round-trip latency for boards using Optiboot.
 - Above this latency, bootloader timeouts—not USB/IP—cause uploads to fail.
 
-The recommended board for USB/IP use is the **Arduino Uno** or **classic Arduino Nano**, both using the **Optiboot** bootloader and ATmega328P.
+The recommended board for USB/IP use is the Arduino Uno or classic Arduino Nano, both using the Optiboot bootloader and ATmega328P.
 
 ## Installation
 
@@ -33,64 +33,64 @@ sudo modprobe usbip_core
 sudo modprobe usbip_host         # On host
 sudo modprobe vhci-hcd           # On client
 ```
-On Windows (client only)
+### On Windows (client only)
 There is no official USB/IP support on Windows, but it can work using a community-maintained tool:
 
-GitHub repo: https://github.com/cezuni/usbip-win
+-GitHub repo: https://github.com/cezuni/usbip-win
 
-You can use the GUI-based USB/IP Manager or command line tools.
+-You can use the GUI-based USB/IP Manager or command line tools.
 
-Follow the usage guide in the GitHub repo for full instructions.
+-Follow the usage guide in the GitHub repo for full instructions.
 
-Setup Instructions (Linux-to-Linux)
-On the Host (e.g., Raspberry Pi or Odroid with Arduino connected)
+### Setup Instructions (Linux-to-Linux)
+## On the Host (e.g., Raspberry Pi or Odroid with Arduino connected)
 Connect your Arduino (Uno or Nano) to the USB port.
 
-Load kernel modules:
+1. Load kernel modules:
 
 ```bash
 sudo modprobe usbip_core
 sudo modprobe usbip_host
 ```
-Start the USB/IP daemon:
+2. Start the USB/IP daemon:
 
 ```bash
 sudo usbipd -D
 ```
-List USB devices and find your Arduino:
+3. List USB devices and find your Arduino:
 
 ```bash
 usbip list -l
 ```
 Example output:
 
-```diff
+```yaml
 - busid 1-1.3 (2341:0043)
   Arduino SA : Uno R3 (CDC ACM)
 ```
-Bind the Arduino for export:
+4. Bind the Arduino for export:
 
 ```bash
 sudo usbip bind -b 1-1.3
 ```
-On the Client (Linux machine)
-Load required modules:
+## On the Client (Linux machine)
+1. Load required modules:
 
 ```bash
 sudo modprobe usbip_core
 sudo modprobe vhci-hcd
 ```
-List remote devices:
+2. List remote devices:
 
 ```bash
 usbip list -r <RPI_IP_ADDRESS>
 ```
-Attach the remote device:
+3. Attach the remote device:
 
 ```bash
 sudo usbip attach -r <RPI_IP_ADDRESS> -b 1-1.3
 ```
-Confirm it's available:
+4. Confirm it's available:
 
 ```bash
 lsusb
