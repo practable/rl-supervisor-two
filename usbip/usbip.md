@@ -29,14 +29,14 @@ Most USB/IP tools are already included in recent Linux distributions. If needed:
 ```bash
 sudo apt update
 sudo apt install linux-tools-$(uname -r) linux-cloud-tools-$(uname -r)
+```
 Then load the required kernel modules:
 
-bash
-Copy
-Edit
+```bash
 sudo modprobe usbip_core
 sudo modprobe usbip_host         # On host
 sudo modprobe vhci-hcd           # On client
+```
 🪟 On Windows (client only)
 There is no official USB/IP support on Windows, but it can work using a community-maintained tool:
 
