@@ -1,28 +1,24 @@
-# 🔌 USB/IP Integration for Remote Arduino Programming
+# USB/IP Integration for Remote Arduino Programming
 
-This directory documents the integration of **USB/IP** into the Remote Labs project, enabling remote Arduino programming over a network using native USB tools like the Arduino IDE or `arduino-cli`.
+This directory documents the integration of USB/IP into the Remote Labs project, enabling remote Arduino programming over a network using native USB tools like the Arduino IDE.
 
-USB/IP (USB over IP) allows a remote USB device (e.g., Arduino) to appear as if it were plugged directly into a student's local computer. This enables seamless uploads and serial communication without requiring custom drivers or cloud toolchains.
+USB/IP (USB over IP) allows a remote USB device (e.g. Arduino) to appear as if it were plugged directly into a student's local computer. This enables seamless uploads and serial communication without requiring custom drivers or cloud toolchains.
 
----
-
-## 📚 Summary of Research
+## Summary of Research
 
 This project evaluated the use of USB/IP for remote sketch uploads to Arduino hardware. It was found that:
 
-- **Not all Arduinos work reliably over USB/IP** due to bootloader and USB enumeration behavior.
-- Boards like the **Arduino Uno R3** (Optiboot bootloader) work flawlessly over USB/IP.
+- **Not all Arduinos work reliably over USB/IP** due to bootloader and USB enumeration behaviour.
+- Boards like the **Arduino Uno R3** (Optiboot bootloader) work over USB/IP.
 - Boards like the **Nano 33 IoT** (BOSSA/UF2 bootloader) fail due to timing issues and port re-enumeration.
-- Uploads via USB/IP work reliably up to **243 ms** of round-trip latency.
+- Uploads via USB/IP work reliably up to **243 ms** of round-trip latency for boards using Optiboot.
 - Above this latency, bootloader timeouts—not USB/IP—cause uploads to fail.
 
-The recommended board for USB/IP use is the **Arduino Uno** or **classic Arduino Nano**, both using the **Optiboot** bootloader.
+The recommended board for USB/IP use is the **Arduino Uno** or **classic Arduino Nano**, both using the **Optiboot** bootloader and ATmega328P.
 
----
+## Installation
 
-## 📥 Installation
-
-### 🐧 On Linux (e.g., Raspberry Pi or client machine)
+### On Linux (e.g., Raspberry Pi or client machine)
 
 Most USB/IP tools are already included in recent Linux distributions. If needed:
 
@@ -37,7 +33,7 @@ sudo modprobe usbip_core
 sudo modprobe usbip_host         # On host
 sudo modprobe vhci-hcd           # On client
 ```
-🪟 On Windows (client only)
+On Windows (client only)
 There is no official USB/IP support on Windows, but it can work using a community-maintained tool:
 
 GitHub repo: https://github.com/cezuni/usbip-win
@@ -46,17 +42,18 @@ You can use the GUI-based USB/IP Manager or command line tools.
 
 Follow the usage guide in the GitHub repo for full instructions.
 
-⚙️ Setup Instructions (Linux-to-Linux)
-🖥️ On the Host (e.g., Raspberry Pi with Arduino connected)
+Setup Instructions (Linux-to-Linux)
+On the Host (e.g., Raspberry Pi or Odroid with Arduino connected)
 Connect your Arduino (Uno or Nano) to the USB port.
 
 Load kernel modules:
 
-bash
+```bash
 Copy
 Edit
 sudo modprobe usbip_core
 sudo modprobe usbip_host
+```
 Start the USB/IP daemon:
 
 bash
