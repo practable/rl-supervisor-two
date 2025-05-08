@@ -104,6 +104,14 @@ You can now open the Arduino IDE and upload sketches as if the board was plugged
 
 Example Terminal Output (Linux) can be found at the end of this doc
 
+### Bootloader Compatibility & Upload Reliability
+| Board                | Bootloader   | USB Behavior              | USB/IP Reliability | Notes                     |
+|---------------------|--------------|---------------------------|--------------------|---------------------------|
+| Arduino Uno R3      | Optiboot     | Stable port, no reset     | 100%             |                          |
+| Classic Nano (328P) | Optiboot     | Stable port, no reset     | 100%             | Smaller form factor       |
+| Nano 33 IoT         | BOSSA / UF2  | Disconnects/re-enumerates | 16%              | Breaks upload over USB/IP |
+
+
 # Latency Limit Summary
 
 - Uploads succeed reliably up to 243 ms round-trip latency using the Uno R3.
