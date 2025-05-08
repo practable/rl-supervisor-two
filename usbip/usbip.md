@@ -142,18 +142,14 @@ Upload is intercepted locally (e.g., by a proxy on the student’s machine):
 
 ## Conclusion
 
-- USB/IP works very well with the **Arduino Uno** and **classic Nano**.
-- Uploads are reliable up to **243 ms latency**.
-- **Nano 33 IoT** and other native USB boards **do not work**.
-- For rural/slow networks, **caching proxy upload** is the most robust alternative.
+- USB/IP works very well with the Arduino Uno and classic Nano.
+- Uploads are reliable up to 243 ms latency.
+- Nano 33 IoT and other native USB boards do not work.
+- For rural/slow networks, caching proxy upload is the most robust alternative.
 
 ---
 
-## For Your Lab Setup, Use:
-
-- **Arduino Uno R3** or **Nano (ATmega328P)**
-- **Optiboot bootloader**
-- **USB/IP** + `arduino-cli` or Arduino IDE
+## images
 
 ![USBIP Server](../docs/images/usbip_host_terminal.png)  
 ![USBIP Client](../docs/images/usbip_client_terminal.png)
