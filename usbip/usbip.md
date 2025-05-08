@@ -49,28 +49,22 @@ Connect your Arduino (Uno or Nano) to the USB port.
 Load kernel modules:
 
 ```bash
-Copy
-Edit
 sudo modprobe usbip_core
 sudo modprobe usbip_host
 ```
 Start the USB/IP daemon:
 
-bash
-Copy
-Edit
+```bash
 sudo usbipd -D
+```
 List USB devices and find your Arduino:
 
-bash
-Copy
-Edit
+```bash
 usbip list -l
+```
 Example output:
 
 diff
-Copy
-Edit
 - busid 1-1.3 (2341:0043)
   Arduino SA : Uno R3 (CDC ACM)
 Bind the Arduino for export:
