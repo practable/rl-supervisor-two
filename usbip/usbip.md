@@ -12,7 +12,7 @@ This project evaluated the use of USB/IP for remote sketch uploads to Arduino ha
 - Boards like the Arduino Uno R3 (Optiboot bootloader) work over USB/IP.
 - Boards like the Nano 33 IoT (BOSSA/UF2 bootloader) fail due to timing issues and port re-enumeration.
 - Uploads via USB/IP work reliably up to 243 ms of round-trip latency for boards using Optiboot.
-- Above this latency, bootloader timeouts—not USB/IP—cause uploads to fail.
+- Above this latency, bootloader timeouts, not USB/IP, cause uploads to fail.
 
 The recommended board for USB/IP use is the Arduino Uno or classic Arduino Nano, both using the Optiboot bootloader and ATmega328P.
 
