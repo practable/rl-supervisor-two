@@ -64,128 +64,97 @@ usbip list -l
 ```
 Example output:
 
-diff
+```diff
 - busid 1-1.3 (2341:0043)
   Arduino SA : Uno R3 (CDC ACM)
+```
 Bind the Arduino for export:
 
-bash
-Copy
-Edit
+```bash
 sudo usbip bind -b 1-1.3
-💻 On the Client (Linux machine)
+```
+On the Client (Linux machine)
 Load required modules:
 
-bash
-Copy
-Edit
+```bash
 sudo modprobe usbip_core
 sudo modprobe vhci-hcd
+```
 List remote devices:
 
-bash
-Copy
-Edit
+```bash
 usbip list -r <RPI_IP_ADDRESS>
+```
 Attach the remote device:
 
-bash
-Copy
-Edit
+```bash
 sudo usbip attach -r <RPI_IP_ADDRESS> -b 1-1.3
+```
 Confirm it's available:
 
-bash
-Copy
-Edit
+```bash
 lsusb
+```
 You should see:
 
-yaml
-Copy
-Edit
+```diff
 Bus 001 Device 003: ID 2341:0043 Arduino SA Uno R3 (CDC ACM)
+```
 You can now open the Arduino IDE and upload sketches as if the board was plugged in locally.
 
-🖼️ Example Terminal Output (Linux)
-(Add your screenshots here)
+Example Terminal Output (Linux) can be found at the end of this doc
 
-⚠️ Bootloader Compatibility & Upload Reliability
-Board	Bootloader	USB Behavior	USB/IP Reliability	Notes
-Arduino Uno R3	Optiboot	Stable port, no reset	✅ 100%	Best choice
-Classic Nano (328P)	Optiboot	Stable port, no reset	✅ 100%	Smaller form factor
-Nano 33 IoT	BOSSA / UF2	Disconnects/re-enumerates	❌ 16%	Breaks upload over USB/IP
+# Latency Limit Summary
 
-Latency Limit Summary
-Uploads succeed reliably up to 243 ms round-trip latency
-
-Beyond this, Optiboot exits before upload begins
-
-Failures are due to bootloader timeout, not USB/IP itself
-
-🔁 Alternative Strategies for High Latency
-For students with poor internet or latency >243 ms, USB/IP is not reliable. Consider these fallback strategies:
-
-✅ 1. Caching Proxy (Recommended)
-Upload is intercepted locally (e.g., by a proxy on the student’s machine)
-
-Sketch is sent to the server (e.g., Raspberry Pi) as a binary
-
-A local script or daemon then flashes it directly to the board
-
-Eliminates tight timing issues and bootloader failures
-
-Maintains Arduino IDE compatibility with minimal changes
-
-🛠️ Status: Can be implemented using arduino-cli on the Pi and a simple upload watcher or queue
-
-🌐 2. Cloud-Based IDE + Server Upload
-Students use a browser IDE (e.g., Codespaces, Eclipse Theia, etc.)
-
-Code is compiled and uploaded server-side
-
-Guarantees upload timing, avoids USB/IP completely
-
-🛠️ More complex, but scalable and reliable
-
-⏳ 3. Bootloader Timeout Extension
-Modify the Optiboot bootloader to extend the timeout window
-
-Works with USB/IP at higher latency (300–500 ms)
-
-Requires custom bootloader flashing and careful documentation
-
-⚠️ Less portable, harder to maintain across hardware
-
-✅ Conclusion
-USB/IP works very well with the Arduino Uno and classic Nano
-
-Uploads are reliable up to 243 ms latency
-
-Nano 33 IoT and other native USB boards do not work
-
-For rural/slow networks, caching proxy upload is the most robust alternative
-
-For your lab setup, use:
-
-Arduino Uno R3 or Nano (ATmega328P)
-
-Optiboot bootloader
-
-USB/IP + arduino-cli or Arduino IDE
-
-For questions or contributions, open an issue or pull request in the main repository.
-
-yaml
-Copy
-Edit
+- Uploads succeed reliably up to **243 ms round-trip latency** using the **Uno R3**.
+- Beyond this, **Optiboot exits before upload begins**.
+- Failures are due to **bootloader timeout**, not USB/IP itself.
 
 ---
 
-Let me know if you'd like this as a `.md` file download, or zipped with your image placeholders. Once you've added your screenshots, just replace the “Example Terminal Output” section with:
+## Alternative Strategies for High Latency
 
-```markdown
-### 🖼️ Example Terminal Output (Linux)
+For students with poor internet or latency >243 ms, USB/IP is not reliable. Consider these fallback strategies:
 
-![USBIP Server](../docs/images/usbip_host_terminal.png)
+### 1. Caching Proxy (Recommended)
+
+Upload is intercepted locally (e.g., by a proxy on the student’s machine):
+
+- Sketch is sent to the server (e.g., Raspberry Pi) as a binary.
+- A local script or daemon then flashes it directly to the board.
+- Eliminates tight timing issues and bootloader failures.
+- Maintains Arduino IDE compatibility with minimal changes.
+
+### 2. Cloud-Based IDE + Server Upload
+
+- Students use a browser IDE (e.g., Codespaces, Eclipse Theia, etc.).
+- Code is compiled and uploaded server-side.
+- Guarantees upload timing, avoids USB/IP completely.
+- More complex, but scalable and reliable.
+
+### 3. Bootloader Timeout Extension
+
+- Modify the **Optiboot bootloader** to extend the timeout window.
+- Works with USB/IP at higher latency.
+- Requires custom bootloader flashing and careful documentation.
+
+---
+
+## Conclusion
+
+- USB/IP works very well with the **Arduino Uno** and **classic Nano**.
+- Uploads are reliable up to **243 ms latency**.
+- **Nano 33 IoT** and other native USB boards **do not work**.
+- For rural/slow networks, **caching proxy upload** is the most robust alternative.
+
+---
+
+## For Your Lab Setup, Use:
+
+- **Arduino Uno R3** or **Nano (ATmega328P)**
+- **Optiboot bootloader**
+- **USB/IP** + `arduino-cli` or Arduino IDE
+
+![USBIP Server](../docs/images/usbip_host_terminal.png)  
 ![USBIP Client](../docs/images/usbip_client_terminal.png)
+
