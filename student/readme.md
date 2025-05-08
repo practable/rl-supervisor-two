@@ -1,10 +1,10 @@
 # Student MCU Test System
 
-This directory contains code and documentation for **validating the Supervisor PCB** by simulating unsafe and safe control cases from the **Student Arduino** and logging outputs using a third **Tester Arduino**.
+This directory contains code and documentation for validating the Supervisor PCB by simulating unsafe and safe control cases from the Student Arduino and logging outputs using a third Tester Arduino.
 
-The test system has **two modes of operation**:
-1. **Automated Test Runner** – Runs all 30 tests sequentially.
-2. **Manual Test Runner** – Runs a single test selected by the user and run from Python.
+The test system has two modes of operation:
+1. Automated Test Runner – Runs all 30 tests sequentially.
+2. Manual Test Runner – Runs a single test selected by the user and run from Python.
 
 
 ## Folder Structure
@@ -18,9 +18,9 @@ The test system has **two modes of operation**:
 ## Hardware Setup
 
 Three Arduinos are used:
-- **Supervisor MCU:** Runs safety firmware and spoofs outputs.
-- **Student MCU:** Sends test signals for DC motor, stepper, and servo.
-- **Tester MCU:** Reads outputs and logs results to host PC.
+- Supervisor MCU: Runs safety firmware and spoofs outputs.
+- Student MCU: Sends test signals for DC motor, stepper, and servo.
+- Tester MCU: Reads outputs and logs results to host PC.
 
 ### Wiring Table
 
@@ -49,7 +49,7 @@ Three Arduinos are used:
 
 ## Section 1: `automated-tests/` — Run All Tests
 
-This sketch (`studentCode.ino`) runs **tests 0 through 29** in sequence. Each test:
+This sketch (`studentCode.ino`) runs tests 0 through 29 in sequence. Each test:
 
 1. Sends a sync pulse
 2. Encodes the 6-bit test ID over pins A0–A2
@@ -77,7 +77,7 @@ This sequence gives the binary value 110101, which corresponds to decimal 53.
 ![Test ID Transmission](../docs/images/figure62.png)
 
 
-## 📈 Test Result Processing (Python)
+## Test Result Processing (Python)
 
 The `run_tests.py` script does the following:
 - Starts the tester
