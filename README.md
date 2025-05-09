@@ -1,5 +1,6 @@
 
 # Remote Labs Supervisor PCB – New Development
+Note: This is a continuation of the existing project: [supervisor-pcb](https://github.com/practable/supervisor-pcb) 
 
 This repository contains the latest work and updates for the Remote Labs Supervisor PCB project.
 
