@@ -37,11 +37,11 @@ volatile bool dirChanged = false;
 int lastDir1 = LOW, lastDir2 = LOW;
 
 // Interrupt service routines to detect direction changes
-void IRAM_ATTR dir1ISR() {
+void dir1ISR() {
   dirChanged = true;
 }
 
-void IRAM_ATTR dir2ISR() {
+void dir2ISR() {
   dirChanged = true;
 }
 
