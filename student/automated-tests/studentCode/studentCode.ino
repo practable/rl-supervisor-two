@@ -390,10 +390,36 @@ void loop() {
     delay(200);
 
     switch (test) {
-      case 0: case0(); break;
-      case 1: case1(); break;
-      ... //condensed to save space
-      case 29: case29(); break;
+        case 0: case0(); break;
+        case 1: case1(); break;
+        case 2: case2(); break;
+        case 3: case3(); break;
+        case 4: case4(); break;
+        case 5: case5(); break;
+        case 6: case6(); break;
+        case 7: case7(); break;
+        case 8: case8(); break;
+        case 9: case9(); break;
+        case 10: case10(); break;
+        case 11: case11(); break;
+        case 12: case12(); break;
+        case 13: case13(); break;
+        case 14: case14(); break;
+        case 15: case15(); break;
+        case 16: case16(); break;
+        case 17: case17(); break;
+        case 18: case18(); break;
+        case 19: case19(); break;
+        case 20: case20(); break;
+        case 21: case21(); break;
+        case 22: case22(); break;
+        case 23: case23(); break;
+        case 24: case24(); break;
+        case 25: case25(); break;
+        case 26: case26(); break;
+        case 27: case27(); break;
+        case 28: case28(); break;
+        case 29: case29(); break;
     }
     delay(delayTime);
   }
