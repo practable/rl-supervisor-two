@@ -43,7 +43,7 @@ Three Arduinos are used:
 ![Wiring Diagram](../docs/images/figure61.png)
 
 ### Real-Life Setup
-![Real Setup](../docs/images/real_life_setup.jpg)
+![Real Setup](../docs/images/real_life_setup.JPG)
 
 ---
 
