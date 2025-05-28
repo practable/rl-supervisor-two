@@ -31,4 +31,4 @@ This repository is organised into several key folders:
 
 ---
 
-For more information, please see the individual `README.md` files inside each folder.
+For more information, please see the individual `.md` files inside each folder.
