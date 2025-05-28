@@ -1,6 +1,8 @@
 
 # Remote Labs Supervisor PCB – New Development
 
+Note: This is a continuation of the existing project: [supervisor-pcb](https://github.com/practable/supervisor-pcb) 
+
 This repository contains the latest work and updates for the Remote Labs Supervisor PCB project.
 
 The Remote Labs Supervisor PCB is designed to allow students to safely upload and execute microcontroller code remotely, while a supervisor system monitors and prevents actions that could damage hardware. This new repo documents the latest progress in firmware, usage tools, and supporting scripts.
