@@ -7,7 +7,7 @@ import ast
 from collections import defaultdict
 
 # --- Config ---
-COM_PORT = "COM5" # change to whatever port your Arduino is on
+COM_PORT = "COM6" # change to whatever port your Arduino is on
 # COM_PORT = "/dev/ttyUSB0"  # For Linux users, change to your Arduino's port
 BAUD_RATE = 115200
 CSV_FILE = "expected_results.csv"
@@ -79,11 +79,13 @@ def write_individual_badges(results_by_test, expected):
         if test_id == 29:
             passed = any([out in allowed for out in outputs if isinstance(out, int)])
         elif 24 <= test_id <= 29:
-            if outputs:
-                avg = sum(outputs) / len(outputs)
-                passed = abs(avg - allowed) <= 5
-            else:
+            # Filter outputs to include only integers
+            angles = [val for val in outputs if isinstance(val, int)]
+            if not angles:
                 passed = False
+            else:
+                avg = sum(angles) / len(angles)
+                passed = abs(avg - allowed) <= 5
         elif test_id in BASIC_TESTS:
             passed = any([out in allowed for out in outputs]) if outputs else False
         elif test_id in MUST_END_IN_ZERO:
@@ -213,12 +215,24 @@ def main():
         if not passed:
             mismatch_counts = defaultdict(int)
             for out in outputs:
+                # Ensure key is always hashable
+                def make_hashable(item):
+                    if isinstance(item, list):
+                        return tuple(make_hashable(sub_item) for sub_item in item)
+                    return item
+
+                key = make_hashable(out)
+
                 if isinstance(allowed, int):
                     if not isinstance(out, int) or abs(out - allowed) > 5:
-                        mismatch_counts[out] += 1
+                        mismatch_counts[key] += 1
+                elif isinstance(allowed, list) and all(isinstance(a, list) for a in allowed):
+                    allowed_tuples = set(map(tuple, allowed))
+                    if key not in allowed_tuples:
+                        mismatch_counts[key] += 1
                 else:
-                    if out not in allowed:
-                        mismatch_counts[tuple(out)] += 1
+                    if key not in allowed:
+                        mismatch_counts[key] += 1
 
             for mismatch, count in mismatch_counts.items():
                 if isinstance(mismatch, tuple):

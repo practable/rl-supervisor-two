@@ -1,69 +1,111 @@
-/*studentCode.ino
-
-    code for student MCU to test outputs can only be controlled when the code is safe
-    Anisha Burgul - 24/04/25
-*/
 #include "shiftRegister.h"
-// Pin definitions
-#define PWM_THING       10
-#define DC_MOTOR_DIR1   12
-#define DC_MOTOR_DIR2   7
-#define LATCH           8
-#define MOSI            11
-#define SCK             13
-#define COUNTER_START   A0  // A0–A2 used for 6-bit encoded test number
-#define START_SIGNAL    A0  // Reused for input detection before test
-#define STUDENT_SERVO_OUT 9  // Student sends PPM/PWM on D9
 
-// Shift register output bitmasks
+// --------------------
+// 🔧 Pin Definitions
+// --------------------
 #define Q0 0b00000001  // DC_MOTOR_EN
-shiftRegister shiftReg(MOSI, SCK, LATCH);
+#define Q2 0b00000100  // STEP_EN
+#define Q4 0b00010000  // DIR
+#define Q5 0b00100000  // SLP
+#define Q6 0b01000000  // RST
 
-// ---------------------
-//  Start functions
-// ---------------------
-void waitForStartSignal() {
-  pinMode(START_SIGNAL, INPUT);
-  Serial.println("Waiting for tester start signal on A0...");
+#define DC_MOTOR_DIR1 12
+#define DC_MOTOR_DIR2 7
+#define STEPP_STEP    6
+#define STEPP_FLT     A5
+#define LIMIT_1       A4
+#define STUDENT_SERVO_OUT 9
+#define PWM_THING     10
 
-  while (digitalRead(START_SIGNAL) == LOW);
-  Serial.println("Start signal received");
-  delay(100);
+shiftRegister shiftReg;
+const int pulseDelay = 500;
+
+void setup() {
+  Serial.begin(115200);
+  shiftReg.begin();
+  shiftReg.allOff();
+
+  pinMode(DC_MOTOR_DIR1, OUTPUT);
+  pinMode(DC_MOTOR_DIR2, OUTPUT);
+  pinMode(STEPP_STEP, OUTPUT);
+  pinMode(STUDENT_SERVO_OUT, OUTPUT);
+  pinMode(STEPP_FLT, INPUT);
+  pinMode(LIMIT_1, INPUT);
+
+  digitalWrite(DC_MOTOR_DIR1, LOW);
+  digitalWrite(DC_MOTOR_DIR2, LOW);
+  digitalWrite(STEPP_STEP, LOW);
+  digitalWrite(STUDENT_SERVO_OUT, LOW);
+
+  Serial.println("Enter a test number (0-29) in the Serial Monitor to run it.");
 }
 
-void sendSyncPulse() {
-  for (int i = 0; i < 3; i++) {
-    pinMode(COUNTER_START + i, OUTPUT);
-    digitalWrite(COUNTER_START + i, HIGH);
-  }
+void loop() {
+  if (Serial.available()) {
+    int test = Serial.parseInt();
+    if (test >= 0 && test <= 29) {
+      clearAll();
+      Serial.print("Starting Test ");
+      Serial.println(test);
 
-  delay(1000);
-
-  for (int i = 0; i < 3; i++) {
-    digitalWrite(COUNTER_START + i, LOW);
-  }
-
-  delay(50);
-}
-
-void send6BitTestNumber(uint8_t testNumber) {
-  for (int i = 0; i < 2; i++) {
-    for (int j = 0; j < 3; j++) {
-      pinMode(COUNTER_START + j, OUTPUT);
-      digitalWrite(COUNTER_START + j, (testNumber >> (i * 3 + j)) & 1);
+      switch (test) {
+        case 0: case0(); break;
+        case 1: case1(); break;
+        case 2: case2(); break;
+        case 3: case3(); break;
+        case 4: case4(); break;
+        case 5: case5(); break;
+        case 6: case6(); break;
+        case 7: case7(); break;
+        case 8: case8(); break;
+        case 9: case9(); break;
+        case 10: case10(); break;
+        case 11: case11(); break;
+        case 12: case12(); break;
+        case 13: case13(); break;
+        case 14: case14(); break;
+        case 15: case15(); break;
+        case 16: case16(); break;
+        case 17: case17(); break;
+        case 18: case18(); break;
+        case 19: case19(); break;
+        case 20: case20(); break;
+        case 21: case21(); break;
+        case 22: case22(); break;
+        case 23: case23(); break;
+        case 24: case24(); break;
+        case 25: case25(); break;
+        case 26: case26(); break;
+        case 27: case27(); break;
+        case 28: case28(); break;
+        case 29: case29(); break;
+      }
+    } else {
+      Serial.println("Invalid test number. Enter 0-29.");
     }
-    delay(250);
-  }
 
-  for (int j = 0; j < 3; j++) {
-    digitalWrite(COUNTER_START + j, LOW);
-  }
-
-  for (int j = 0; j < 3; j++) {
-    digitalWrite(COUNTER_START + j, LOW);
-    pinMode(COUNTER_START + j, INPUT);
+    while (Serial.available()) Serial.read();
   }
 }
+
+void clearAll() {
+  shiftReg.allOff();
+  digitalWrite(DC_MOTOR_DIR1, LOW);
+  digitalWrite(DC_MOTOR_DIR2, LOW);
+  digitalWrite(STEPP_STEP, LOW);
+  digitalWrite(STUDENT_SERVO_OUT, LOW);
+}
+
+void stepPulseSlow(int steps) {
+  for (int i = 0; i < steps; i++) {
+    digitalWrite(STEPP_STEP, HIGH);
+    delayMicroseconds(pulseDelay);
+    digitalWrite(STEPP_STEP, LOW);
+    delayMicroseconds(pulseDelay);
+  }
+}
+
+
 
 void clearMotor() {
   shiftReg.shiftWrite(Q0, LOW);
@@ -352,78 +394,4 @@ void case29() {
     sendServoPulse(1000 + (i % 2) * 1000, 100);
     delay(5);
   }
-}
-
-// ---------------------
-// Arduino Setup / Loop
-// ---------------------
-void setup() {
-  Serial.begin(115200);
-
-  pinMode(DC_MOTOR_DIR1, OUTPUT);
-  pinMode(DC_MOTOR_DIR2, OUTPUT);
-  pinMode(STUDENT_SERVO_OUT, OUTPUT);
-  digitalWrite(STUDENT_SERVO_OUT, LOW);
-
-  shiftReg.begin();
-  shiftReg.allOff();
-}
-
-void loop() {
-  waitForStartSignal();
-  pinMode(6, OUTPUT);
-  digitalWrite(PWM_THING, HIGH);
-
-  const int totalTests = 30;
-  const int delayTime = 3000;
-
-  for (int test = 0; test < totalTests; test++) {
-    Serial.print("Starting test ");
-    Serial.println(test);
-
-    clearMotor();
-    shiftReg.allOff();
-    digitalWrite(6, LOW);
-    sendSyncPulse();
-    delay(50);
-    send6BitTestNumber(test);
-    delay(200);
-
-    switch (test) {
-      case 0: case0(); break;
-      case 1: case1(); break;
-      case 2: case2(); break;
-      case 3: case3(); break;
-      case 4: case4(); break;
-      case 5: case5(); break;
-      case 6: case6(); break;
-      case 7: case7(); break;
-      case 8: case8(); break;
-      case 9: case9(); break;
-      case 10: case10(); break;
-      case 11: case11(); break;
-      case 12: case12(); break;
-      case 13: case13(); break;
-      case 14: case14(); break;
-      case 15: case15(); break;
-      case 16: case16(); break;
-      case 17: case17(); break;
-      case 18: case18(); break;
-      case 19: case19(); break;
-      case 20: case20(); break;
-      case 21: case21(); break;
-      case 22: case22(); break;
-      case 23: case23(); break;
-      case 24: case24(); break;
-      case 25: case25(); break;
-      case 26: case26(); break;
-      case 27: case27(); break;
-      case 28: case28(); break;
-      case 29: case29(); break;
-    }
-    delay(delayTime);
-  }
-  clearMotor();
-  shiftReg.allOff();
-  Serial.println("All tests complete. Waiting for new signal.\n");
 }
